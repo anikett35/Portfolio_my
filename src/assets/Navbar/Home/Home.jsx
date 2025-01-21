@@ -18,7 +18,7 @@ const Home = () => {
         </p>
 
         {/* Buttons Container */}
-        <div className="flex flex-row space-x-4 mt-6">
+        <div className="flex flex-col items-center space-y-4 mt-6 md:flex-row md:space-x-4 md:space-y-0 md:items-start">
           <button
             className="text-white py-2 px-4 text-sm md:text-lg md:py-3 md:px-6 hover:bg-amber-500 bg-amber-400 font-semibold rounded-full shadow-lg hover:shadow-2xl transform hover:scale-105 transition duration-300 w-48"
             onClick={() => {
@@ -29,14 +29,11 @@ const Home = () => {
             Contact Me
           </button>
 
-          <a
-            href="\Aniket bedwal.pdf"
-            download
-          >
+          <a href="\Aniket bedwal.pdf" download>
             <button
               className="text-white py-2 px-4 text-sm md:text-lg md:py-3 md:px-6 hover:bg-blue-500 bg-blue-400 font-semibold rounded-full shadow-lg hover:shadow-2xl transform hover:scale-105 transition duration-300 w-48"
             >
-               Resume
+              Resume
             </button>
           </a>
         </div>
