@@ -29,7 +29,7 @@ const Footer = () => {
         <li className="flex items-center gap-2 hover:opacity-80 transition-all duration-300">
           <CiLinkedin size={20} />
           <a
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/in/aniket-bedwal/"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-yellow-500 transition-all duration-300"
@@ -40,7 +40,7 @@ const Footer = () => {
         <li className="flex items-center gap-2 hover:opacity-80 transition-all duration-300">
           <FaGithub size={20} />
           <a
-            href="https://github.com"
+            href="https://github.com/anikett35"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-yellow-500 transition-all duration-300"
