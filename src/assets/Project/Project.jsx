@@ -4,7 +4,7 @@ import { ExternalLink, ArrowUpRight, Code } from "lucide-react";
 const projects = [
   {
     id: 1,
-    title: "LMS Platform",
+    title: "Sikhley",
     image: "/v1.png",
     liveUrl: "https://sikhley.vercel.app/",
     description: "A comprehensive Learning Management System for students and teachers.",
@@ -16,6 +16,14 @@ const projects = [
     image: "/v2.png",
     liveUrl: "https://cheap-flight.netlify.app/",
     description: "An online flight booking system with seat selection and payment integration.",
+    tech: ["React.js", "Express.js", "MySQL", "Bootstrap"],
+  },
+  {
+    id: 2,
+    title: "MediMage",
+    image: "/v3.png",
+    liveUrl: "https://medi-mage.vercel.app/",
+    description: "An online Doctor Appointment System designed to simplify the process of scheduling, managing, and tracking medical appointments efficiently and conveniently.",
     tech: ["React.js", "Express.js", "MySQL", "Bootstrap"],
   },
 ];
