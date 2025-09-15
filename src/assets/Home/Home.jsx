@@ -156,7 +156,7 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Animations */}
+      {/* Animation */}
       <style jsx>{`
         @keyframes float {
           0%,
