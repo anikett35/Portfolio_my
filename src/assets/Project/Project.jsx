@@ -16,7 +16,7 @@ const projects = [
     image: "/v2.png",
     liveUrl: "https://cheap-flight.netlify.app/",
     description: "An online flight booking system with seat selection and payment integration.",
-    tech: ["React.js", "Express.js", "MySQL", "Bootstrap"],
+    tech: ["Html", "Css", "Javascript", "Bootstrap"],
   },
   {
     id: 2,
