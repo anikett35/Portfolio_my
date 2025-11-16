@@ -44,15 +44,15 @@ const About = () => {
               {/* Inner Shadow Box */}
               <div className="relative bg-[#0f172a] rounded-xl shadow-2xl overflow-hidden transform transition-transform duration-500 group-hover:scale-105">
                 <img
-                  src="/profile-pic.png"
+                  src="/profile-pic.png.jpg"
                   alt="Aniket's Profile"
                   className="w-64 h-96 md:w-72 md:h-[450px] object-cover rounded-xl border-2 border-white/20"
                 />
 
                 {/* Available Badge */}
-                <div className="absolute -top-3 -right-3 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold shadow-md">
-                  Available
-                </div>
+                
+                  
+                
               </div>
             </div>
           </div>
