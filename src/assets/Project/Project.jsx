@@ -7,34 +7,27 @@ const projects = [
     title: "Sikhley",
     image: "/v1.png",
     liveUrl: "https://sikhley.vercel.app/",
-    description: "A comprehensive Learning Management System for students and teachers.",
-    tech: ["React.js", "Node.js", "MongoDB", "TailwindCSS"],
-  },
-  {
-    id: 2,
-    title: "Airline Booking System",
-    image: "/v2.png",
-    liveUrl: "https://cheap-flight.netlify.app/",
-    description: "An online flight booking system with seat selection and payment integration.",
-    tech: ["Html", "Css", "Javascript", "Bootstrap"],
+    description: "A modern LMS platform that streamlines course delivery, assessments, and learning progress tracking for students and instructors.",
+    tech: ["MongoDB", "Express.js", "React.js", "Node.js","typeScript"],
   },
   {
     id: 2,
     title: "MediMage",
     image: "/v3.png",
     liveUrl: "https://medi-mage.vercel.app/",
-    description: "An online Doctor Appointment System designed to simplify the process of scheduling, managing, and tracking medical appointments efficiently and conveniently.",
-    tech: ["React.js", "Express.js", "MySQL", "Bootstrap"],
+    description: "A doctor appointment booking platform enabling users to schedule visits, manage prescriptions, and monitor healthcare records efficiently.",
+    tech: ["MongoDB", "Express.js", "React.js", "Node.js"],
   },
- {
-  id: 3,
-  title: "PetCare",
-  image: "/v4.png",
-  liveUrl: "https://pet-care-new.vercel.app/",
-  description: "A smart pet management and veterinary appointment platform that helps pet owners book visits, maintain medical records, and ensure better care for their furry companions.",
-  tech: ["MongoDB", "Express.js", "React.js", "Node.js"], 
-},
+  {
+    id: 3,
+    title: "PetCare",
+    image: "/v4.png",
+    liveUrl: "https://pet-care-new.vercel.app/",
+    description: "A MERN-based pet healthcare solution that helps owners manage veterinary appointments, medical history, and vaccination reminders.",
+    tech: ["MongoDB", "Express.js", "React.js", "Node.js"],
+  },
 ];
+
 
 const ProjectCard = ({ project, index, isVisible }) => (
   <div
