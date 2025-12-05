@@ -26,6 +26,14 @@ const projects = [
     description: "An online Doctor Appointment System designed to simplify the process of scheduling, managing, and tracking medical appointments efficiently and conveniently.",
     tech: ["React.js", "Express.js", "MySQL", "Bootstrap"],
   },
+ {
+  id: 3,
+  title: "PetCare",
+  image: "/v4.png",
+  liveUrl: "https://pet-care-new.vercel.app/",
+  description: "A smart pet management and veterinary appointment platform that helps pet owners book visits, maintain medical records, and ensure better care for their furry companions.",
+  tech: ["MongoDB", "Express.js", "React.js", "Node.js"], 
+},
 ];
 
 const ProjectCard = ({ project, index, isVisible }) => (
