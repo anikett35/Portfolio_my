@@ -26,6 +26,14 @@ const projects = [
     description: "A MERN-based pet healthcare solution that helps owners manage veterinary appointments, medical history, and vaccination reminders.",
     tech: ["MongoDB", "Express.js", "React.js", "Node.js"],
   },
+   {
+    id: 4,
+    title: "Alumni-Connect",
+    image: "/v5.png",
+    liveUrl: "http://digital-platform-alumini.vercel.app",
+    description: "An interactive digital platform connecting students and alumni through real-time messaging, mentorship programs, and community engagement. Users can create profiles, share posts, organize events, and build meaningful professional connections within their alumni network.",
+    tech: ["MongoDB", "Express.js", "React.js", "Node.js"],
+  },
 ];
 
 
