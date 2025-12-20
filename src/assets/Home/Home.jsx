@@ -14,7 +14,7 @@ const Home = () => {
 
   const roles = [
     "Full-Stack Developer",
-    "React Native Expert",
+    "React Developer",
     "UI/UX Enthusiast",
     "Problem Solver",
   ];
