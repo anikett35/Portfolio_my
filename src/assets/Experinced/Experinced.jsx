@@ -1,67 +1,44 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Briefcase } from "lucide-react";
+import { motion } from "framer-motion";
 
 const WorkExperience = () => {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
 
   const experiences = [
     {
       id: 1,
-      role: "Content Moderator Intern (Remote)",
+      role: "Full-Stack Developer Intern",
       company: "Innovitica Pvt. Ltd",
-      duration: "January 2025 - August 2025",
-      type: "Internship • New Delhi, India",
+      duration: "February 2026 - Present",
+      type: "Remote",
       points: [
-        <>
-          Monitored and moderated{" "}
-          <span className="font-bold text-[#c4962a]">digital content</span> to
-          ensure it followed company policies and community guidelines.
-        </>,
-        <>
-          Showed{" "}
-          <span className="font-bold text-[#c4962a]">
-            strong problem-solving skills
-          </span>{" "}
-          and attention to detail in daily moderation tasks.
-        </>,
-        <>
-          Worked with different teams
-          <span className="font-bold text-[#c4962a]">
-            {" "}
-            to improve user safety and community engagement
-          </span>
-          .
-        </>,
+        <>Developed full-stack web applications using <span className="font-bold text-[#c4962a]">React, Node.js, Express, and MongoDB</span>.</>,
+        <>Built <span className="font-bold text-[#c4962a]">REST APIs</span> to enable communication between frontend and backend services.</>,
+        <>Designed responsive UI components using <span className="font-bold text-[#c4962a]">Tailwind CSS</span> for improved usability.</>,
       ],
     },
     {
       id: 2,
-      role: "Full-Stack Developer Intern (Remote)",
+      role: "Content Moderator Intern",
+      company: "Innovitica Pvt. Ltd",
+      duration: "January 2025 - August 2025",
+      type: "Remote • New Delhi, India",
+      points: [
+        <>Managed and updated website content using <span className="font-bold text-[#c4962a]">WordPress CMS</span>.</>,
+        <>Reviewed digital content to maintain <span className="font-bold text-[#c4962a]">platform quality standards</span>.</>,
+        <>Applied <span className="font-bold text-[#c4962a]">SEO practices</span> to improve search visibility and website traffic.</>,
+      ],
+    },
+    {
+      id: 3,
+      role: "Full-Stack Developer Intern",
       company: "Astraeus Next Gen",
       duration: "January 2025 - April 2025",
-      type: "Internship • Pune, India",
+      type: "Remote • Pune, India",
       points: [
-        <>
-          Developed{" "}
-          <span className="font-bold text-[#c4962a]">
-            responsive web applications
-          </span>{" "}
-          using HTML5, Tailwind CSS, and React.js for optimal performance across
-          devices.
-        </>,
-        <>
-          Gained{" "}
-          <span className="font-bold text-[#c4962a]">practical experience</span>{" "}
-          in front-end and back-end development processes.
-        </>,
-        <>
-          Used <span className="font-bold text-[#c4962a]">AI tools</span> to
-          simplify coding, debugging, and content generation tasks.
-        </>,
+        <>Developed responsive web pages using <span className="font-bold text-[#c4962a]">React, HTML, and Tailwind CSS</span>.</>,
+        <>Integrated frontend components with <span className="font-bold text-[#c4962a]">backend APIs</span>.</>,
+        <>Used <span className="font-bold text-[#c4962a]">Git and GitHub</span> for version control and collaboration.</>,
       ],
     },
   ];
@@ -102,14 +79,13 @@ const WorkExperience = () => {
           <div className="absolute -top-2 -left-[13px] w-6 h-6 bg-gradient-to-br from-[#c4962a] to-[#8b6914] rotate-45 border-2 border-[#ffd700] shadow-[0_0_15px_rgba(196,150,42,0.5)] animate-pulse-glow" />
 
           {experiences.map((exp, index) => (
-            <div
+            <motion.div
               key={exp.id}
-              className={`relative group transition-all duration-1000 ${
-                isVisible
-                  ? "opacity-100 translate-x-0"
-                  : "opacity-0 -translate-x-10"
-              }`}
-              style={{ transitionDelay: `${index * 200}ms` }}
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: index * 0.2 }}
+              viewport={{ once: true }}
+              className="relative group transition-all duration-500"
             >
               {/* Timeline Marker */}
               <div className="absolute -left-[55px] md:-left-[59px] top-1 w-6 h-6 bg-gradient-to-br from-[#c4962a] to-[#ffd700] rounded-full border-4 border-[#0a0a0a] shadow-[0_0_20px_rgba(196,150,42,0.6)] group-hover:scale-125 transition-transform duration-300 animate-marker-pulse" />
@@ -186,7 +162,7 @@ const WorkExperience = () => {
                   ))}
                 </ul>
               </div>
-            </div>
+            </motion.div>
           ))}
 
           {/* Decorative Bottom Cap */}

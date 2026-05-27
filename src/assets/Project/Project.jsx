@@ -1,17 +1,26 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { ExternalLink, ArrowUpRight, Code } from "lucide-react";
+import { motion } from "framer-motion";
 
 const projects = [
   {
     id: 1,
-    title: "Sikhley",
+    title: "PolicyEngine",
     image: "/v1.png",
-    liveUrl: "https://sikhley.vercel.app/",
-    description: "A modern LMS platform that streamlines course delivery, assessments, and learning progress tracking for students and instructors.",
-    tech: ["MongoDB", "Express.js", "React.js", "Node.js","typeScript"],
+    liveUrl: "#",
+    description: "Industry-level rule evaluation system developed with Rubiscape Technologies for compliance and policy management. Implemented FastAPI backend APIs, JWT authentication, audit logging, and AI policy generation.",
+    tech: ["FastAPI", "React 18", "MongoDB", "Groq LLaMA 3.3", "Random Forest"],
   },
   {
     id: 2,
+    title: "Alumni-Connect",
+    image: "/v5.png",
+    liveUrl: "http://digital-platform-alumini.vercel.app",
+    description: "Built a mentoring platform connecting students with alumni. Implemented real-time messaging using Socket.IO, JWT authentication, and admin analytics dashboard.",
+    tech: ["React.js", "Node.js", "MongoDB", "Socket.IO"],
+  },
+  {
+    id: 3,
     title: "MediMage",
     image: "/v3.png",
     liveUrl: "https://medi-mage.vercel.app/",
@@ -19,29 +28,22 @@ const projects = [
     tech: ["MongoDB", "Express.js", "React.js", "Node.js"],
   },
   {
-    id: 3,
+    id: 4,
     title: "PetCare",
     image: "/v4.png",
     liveUrl: "https://pet-care-new.vercel.app/",
     description: "A MERN-based pet healthcare solution that helps owners manage veterinary appointments, medical history, and vaccination reminders.",
     tech: ["MongoDB", "Express.js", "React.js", "Node.js"],
   },
-  {
-    id: 4,
-    title: "Alumni-Connect",
-    image: "/v5.png",
-    liveUrl: "http://digital-platform-alumini.vercel.app",
-    description: "An interactive digital platform connecting students and alumni through real-time messaging, mentorship programs, and community engagement. Users can create profiles, share posts, organize events, and build meaningful professional connections within their alumni network.",
-    tech: ["MongoDB", "Express.js", "React.js", "Node.js"],
-  },
 ];
 
-const ProjectCard = ({ project, index, isVisible }) => (
-  <div
-    className={`relative rounded-none overflow-hidden border-4 border-[#c4962a]/40 backdrop-blur-sm bg-[#1a1a1a] hover:border-[#c4962a] transition-all duration-500 group hover:shadow-[0_0_40px_rgba(196,150,42,0.3)] ${
-      isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-    }`}
-    style={{ transitionDelay: `${index * 150}ms` }}
+const ProjectCard = ({ project, index }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.6, delay: index * 0.1 }}
+    viewport={{ once: true }}
+    className="relative rounded-none overflow-hidden border-4 border-[#c4962a]/40 backdrop-blur-sm bg-[#1a1a1a] hover:border-[#c4962a] transition-all duration-500 group hover:shadow-[0_0_40px_rgba(196,150,42,0.3)]"
   >
     {/* Corner Decorations */}
     <div className="absolute top-0 left-0 w-6 h-6 border-t-4 border-l-4 border-[#c4962a] z-10" />
@@ -112,21 +114,11 @@ const ProjectCard = ({ project, index, isVisible }) => (
         </div>
       </div>
     </a>
-  </div>
+  </motion.div>
 );
 
 const Projects = () => {
-  const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => entry.isIntersecting && setIsVisible(true),
-      { threshold: 0.1 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
 
   return (
     <section
@@ -148,13 +140,19 @@ const Projects = () => {
 
       <div className="relative z-10 max-w-5xl mx-auto px-6">
         {/* Section Header */}
-        <div className={`flex items-center gap-4 mb-16 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="flex items-center gap-4 mb-16"
+        >
           <Code className="w-8 h-8 text-[#c4962a]" />
           <h2 className="text-4xl font-black text-[#c4962a] tracking-wide" style={{ fontFamily: 'Cinzel, serif' }}>
             Projects
           </h2>
           <div className="flex-1 h-[2px] bg-gradient-to-r from-[#c4962a] via-[#ffd700] to-transparent" />
-        </div>
+        </motion.div>
 
         {/* Projects Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -163,7 +161,6 @@ const Projects = () => {
               key={project.id}
               project={project}
               index={index}
-              isVisible={isVisible}
             />
           ))}
         </div>

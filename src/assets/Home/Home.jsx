@@ -4,12 +4,11 @@ import {
   Download,
   Github,
   Linkedin,
-  ExternalLink,
   ChevronDown,
 } from "lucide-react";
+import { motion } from "framer-motion";
 
 const Home = () => {
-  const [isVisible, setIsVisible] = useState(false);
   const [textIndex, setTextIndex] = useState(0);
 
   const roles = [
@@ -20,7 +19,6 @@ const Home = () => {
   ];
 
   useEffect(() => {
-    setIsVisible(true);
     const interval = setInterval(
       () => setTextIndex((prev) => (prev + 1) % roles.length),
       3000,
@@ -60,12 +58,11 @@ const Home = () => {
 
       <div className="max-w-5xl mx-auto px-6 relative z-10">
         <div className={`flex flex-col md:flex-row items-start gap-12`}>
-          <div
-            className={`md:w-3/5 flex flex-col items-start space-y-6 transition-all duration-1000 ${
-              isVisible
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-8"
-            }`}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+            className="md:w-3/5 flex flex-col items-start space-y-6"
           >
             {/* House Sigil Badge */}
             <div
@@ -198,7 +195,7 @@ const Home = () => {
                 </a>
               ))}
             </div>
-          </div>
+          </motion.div>
 
           <div className="md:w-2/5"></div>
         </div>

@@ -1,14 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { User, X } from "lucide-react";
+import React, { useState } from "react";
+import { User, X, Trophy, Youtube, GraduationCap } from "lucide-react";
+import { motion } from "framer-motion";
 
 const About = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    // Trigger animation when component mounts
-    setIsVisible(true);
-  }, []);
 
   return (
     <>
@@ -39,11 +34,17 @@ const About = () => {
 
           <div className="flex flex-col md:flex-row gap-12 items-center md:items-start">
             {/* Left Content - Manuscript Style */}
-            <div className="md:w-1/2 space-y-6 text-lg leading-relaxed" style={{ fontFamily: 'Cormorant Garamond, serif' }}>
+            <motion.div 
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="md:w-1/2 space-y-6 text-lg leading-relaxed" 
+              style={{ fontFamily: 'Cormorant Garamond, serif' }}
+            >
               <p className="text-[#d4d4d4] first-letter:text-6xl first-letter:font-bold first-letter:text-[#c4962a] first-letter:mr-2 first-letter:float-left first-letter:leading-none">
                 My name is <span className="text-[#c4962a] font-bold">Aniket Bedwal</span>, 
-                a passionate and self-driven <span className="text-[#c4962a] font-bold">B.Tech</span> student in 
-                Computer Science (AI) at <span className="text-[#c4962a] font-bold">VIT Pune</span>. I am determined to make my family proud by contributing meaningfully to the tech industry.
+                a passionate and self-driven student. I hold a <span className="text-[#c4962a] font-bold">B.Tech in Computer Science (AI)</span> from <span className="text-[#c4962a] font-bold">VIT Pune (CGPA: 9.14)</span>, and a Diploma in Information Technology from <span className="text-[#c4962a] font-bold">Government Polytechnic Mumbai (91.08%)</span>.
               </p>
               
               <div className="flex items-center gap-4 my-6">
@@ -52,25 +53,35 @@ const About = () => {
                 <div className="h-[2px] flex-1 bg-gradient-to-r from-transparent via-[#c4962a] to-transparent" />
               </div>
 
-              <p className="text-[#d4d4d4]">
-                I have hands-on experience as a <span className="text-[#c4962a] font-bold">Full-Stack Developer Intern</span> at
-                <span className="text-[#c4962a] font-bold"> Astraeus Next Gen</span>, building responsive web applications using 
-                <span className="text-[#c4962a] font-bold"> React.js, Tailwind CSS</span>. I also work as a 
-                <span className="text-[#c4962a] font-bold"> Content Moderator Intern</span> at
-                <span className="text-[#c4962a] font-bold"> Innovitica Pvt. Ltd</span>.
-              </p>
+              <div className="space-y-4">
+                <h3 className="text-2xl font-black text-[#c4962a]" style={{ fontFamily: 'Cinzel, serif' }}>Achievements & Activities</h3>
+                <ul className="space-y-3">
+                  <li className="flex items-center gap-3 text-[#d4d4d4]">
+                    <Trophy className="text-[#c4962a] w-5 h-5" />
+                    <span><span className="font-bold text-[#c4962a]">Finalist</span> - Odoo x VIT Pune Hackathon 26</span>
+                  </li>
+                  <li className="flex items-center gap-3 text-[#d4d4d4]">
+                    <Youtube className="text-[#c4962a] w-5 h-5" />
+                    <span><span className="font-bold text-[#c4962a]">Techzy</span> YouTube Channel - 27,000+ subscribers</span>
+                  </li>
+                </ul>
+              </div>
               
-              <p className="text-[#d4d4d4]">
+              <p className="text-[#d4d4d4] mt-6">
                 My journey is fueled by <span className="text-[#c4962a] font-bold">dedication and consistent effort</span>. I actively participate in hackathons, open-source initiatives, and continuous learning to grow as a professional. I'm always ready to <span className="text-[#c4962a] font-bold">collaborate, innovate, and make an impact</span>.
               </p>
-            </div>
+            </motion.div>
 
             {/* Right Content - Royal Portrait */}
-            <div className="md:w-1/2 flex justify-center">
+            <motion.div 
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="md:w-1/2 flex justify-center"
+            >
               <div 
-                className={`relative group cursor-pointer transition-all duration-1000 ${
-                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-                }`}
+                className="relative group cursor-pointer transition-all duration-500"
                 onClick={() => setIsModalOpen(true)}
               >
                 {/* Outer Golden Frame */}
@@ -104,7 +115,7 @@ const About = () => {
                   </span>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
