@@ -2,7 +2,7 @@ import React, { useRef, useMemo, Suspense } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Points, PointMaterial } from '@react-three/drei';
 import * as THREE from 'three';
-import MeteorImpactField from './MeteorImpactField';
+import EdgeNetwork from './EdgeNetwork';
 
 // Generates random star particles
 function Starfield() {
@@ -61,8 +61,8 @@ function SpaceBackground() {
         
         <Suspense fallback={null}>
           <Starfield />
-          <group position={[1.2, 0, -1]} scale={1.2}>
-            <MeteorImpactField />
+          <group position={[2.2, -0.8, -1.5]} scale={0.9}>
+            <EdgeNetwork />
           </group>
         </Suspense>
       </Canvas>
