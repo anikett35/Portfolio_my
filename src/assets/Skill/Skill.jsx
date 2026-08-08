@@ -1,173 +1,157 @@
-import React from "react";
-import { Code } from "lucide-react";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { 
-  FaHtml5, FaCss3, FaJs, FaPython, FaJava, FaReact, FaBootstrap, FaGit, FaFigma, FaNodeJs 
-} from "react-icons/fa";
-import { 
-  SiTailwindcss, SiNextdotjs, SiMongodb, SiMysql, SiExpress, SiGithub 
+  SiHtml5, SiCss3, SiJavascript, SiPython, SiCplusplus, SiTypescript, 
+  SiReact, SiNextdotjs, SiTailwindcss, SiBootstrap, SiNodedotjs, SiExpress, SiSocketdotio,
+  SiMongodb, SiMysql, SiPrisma, SiOpenjdk,
+  SiGit, SiGithub, SiFigma 
 } from "react-icons/si";
 
+const skillCategories = [
+  {
+    id: "languages",
+    title: "Languages",
+    skills: [
+      { icon: SiHtml5, name: "HTML5", color: "#E34F26" },
+      { icon: SiCss3, name: "CSS3", color: "#1572B6" },
+      { icon: SiJavascript, name: "JavaScript", color: "#F7DF1E" },
+      { icon: SiTypescript, name: "TypeScript", color: "#3178C6" },
+      { icon: SiPython, name: "Python", color: "#3776AB" },
+      { icon: SiOpenjdk, name: "Java", color: "#007396" },
+      { icon: SiCplusplus, name: "C++", color: "#00599C" },
+      { icon: SiMysql, name: "SQL", color: "#4479A1" },
+    ],
+  },
+  {
+    id: "frameworks",
+    title: "Frameworks",
+    skills: [
+      { icon: SiReact, name: "React", color: "#61DAFB" },
+      { icon: SiNextdotjs, name: "Next.js", color: "#FFFFFF" },
+      { icon: SiTailwindcss, name: "Tailwind", color: "#06B6D4" },
+      { icon: SiBootstrap, name: "Bootstrap", color: "#7952B3" },
+      { icon: SiNodedotjs, name: "Node.js", color: "#339933" },
+      { icon: SiExpress, name: "Express", color: "#FFFFFF" },
+      { icon: SiSocketdotio, name: "Socket.IO", color: "#010101" },
+    ],
+  },
+  {
+    id: "databases",
+    title: "Databases",
+    skills: [
+      { icon: SiMongodb, name: "MongoDB", color: "#47A248" },
+      { icon: SiMysql, name: "MySQL", color: "#4479A1" },
+      { icon: SiPrisma, name: "Prisma", color: "#2D3748" },
+    ],
+  },
+  {
+    id: "tools",
+    title: "Tools",
+    skills: [
+      { icon: SiGit, name: "Git", color: "#F05032" },
+      { icon: SiGithub, name: "GitHub", color: "#FFFFFF" },
+      { icon: SiFigma, name: "Figma", color: "#F24E1E" },
+    ],
+  },
+];
+
 const Skill = () => {
-  const skillCategories = [
-    {
-      title: "Programming Languages",
-      skills: [
-        { icon: <FaHtml5 size={28} />, name: "HTML5", desc: "Markup language for web pages", color: "bg-[#e34c26] text-white" },
-        { icon: <FaCss3 size={28} />, name: "CSS3", desc: "Styling language for web design", color: "bg-[#264de4] text-white" },
-        { icon: <FaJs size={28} />, name: "JavaScript", desc: "Language of the web", color: "bg-[#f0db4f] text-black" },
-        { icon: <FaPython size={28} />, name: "Python", desc: "High-level, versatile programming language", color: "bg-[#306998] text-white" },
-        { icon: <FaJava size={28} />, name: "Java", desc: "Popular for enterprise applications", color: "bg-[#5382a1] text-white" },
-        { icon: "C++", name: "C++", desc: "Object-oriented programming language", color: "bg-[#00599c] text-white" },
-      ],
-    },
-    {
-      title: "Frameworks & Libraries",
-      skills: [
-        { icon: <FaReact size={28} />, name: "React", desc: "JavaScript library for UI development", color: "bg-[#61dafb] text-black" },
-        { icon: <SiNextdotjs size={28} />, name: "Next.js", desc: "React-based JavaScript framework", color: "bg-black text-white" },
-        { icon: <SiTailwindcss size={28} />, name: "Tailwind", desc: "Utility-first CSS framework", color: "bg-[#38bdf8] text-white" },
-        { icon: <FaBootstrap size={28} />, name: "Bootstrap", desc: "CSS framework for responsive design", color: "bg-[#7952b3] text-white" },
-        { icon: <FaNodeJs size={28} />, name: "Node.js", desc: "JavaScript runtime for backend development", color: "bg-[#68a063] text-white" },
-        { icon: <SiExpress size={28} />, name: "Express", desc: "Minimalist Node.js framework", color: "bg-[#303030] text-white" },
-      ],
-    },
-    {
-      title: "Databases",
-      skills: [
-        { icon: <SiMongodb size={28} />, name: "MongoDB", desc: "NoSQL document-based database", color: "bg-[#47a248] text-white" },
-        { icon: <SiMysql size={28} />, name: "MySQL", desc: "Relational database management system", color: "bg-[#00758f] text-white" },
-      ],
-    },
-    {
-      title: "Tools & Platforms",
-      skills: [
-        { icon: <FaGit size={28} />, name: "Git", desc: "Version control system", color: "bg-[#f05032] text-white" },
-        { icon: <SiGithub size={28} />, name: "GitHub", desc: "Code hosting platform", color: "bg-[#181717] text-white" },
-        { icon: <FaFigma size={28} />, name: "Figma", desc: "Design and prototyping tool", color: "bg-[#f24e1e] text-white" },
-      ],
-    },
-  ];
+  const [activeCategory, setActiveCategory] = useState(skillCategories[0].id);
+  const activeCategoryData = skillCategories.find(c => c.id === activeCategory);
 
   return (
-    <section
-      id="skill"
-      className="relative py-20 bg-[#0a0a0a] text-white overflow-hidden"
-    >
-      {/* Armory Stone Texture */}
-      <div className="absolute inset-0 opacity-5"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E")`,
-          backgroundSize: '100px 100px'
-        }}
-      />
-
-      {/* Forge Fire Glow */}
-      <div className="absolute top-1/3 right-10 w-96 h-96 bg-[#ff6b00] rounded-full blur-[120px] opacity-15 animate-pulse" />
-      <div className="absolute bottom-1/3 left-10 w-96 h-96 bg-[#c4962a] rounded-full blur-[120px] opacity-10 animate-pulse" style={{ animationDelay: '1.5s' }} />
-
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
+    <section id="skill" className="relative section-py z-10 border-t border-border/50 min-h-[600px]">
+      
+      <div className="max-w-6xl mx-auto px-6 md:px-12 relative z-10">
+        
         {/* Section Header */}
-        <div className="flex items-center gap-4 mb-16">
-          <Code className="w-8 h-8 text-[#c4962a]" />
-          <h2 className="text-4xl font-black text-[#c4962a] tracking-wide" style={{ fontFamily: 'Cinzel, serif' }}>
-            Skills
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ ease: "easeOut", duration: 0.6 }}
+          className="flex flex-col items-center mb-12 text-center"
+        >
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-surface/50 backdrop-blur-sm mb-6">
+            <span className="text-eyebrow">Tech Stack</span>
+          </div>
+          <h2 className="text-h2 text-white">
+            Tools & Technologies
           </h2>
-          <div className="flex-1 h-[2px] bg-gradient-to-r from-[#c4962a] via-[#ffd700] to-transparent" />
+        </motion.div>
+
+        {/* Tabbed Navigation */}
+        <div className="flex flex-wrap justify-center gap-2 mb-12">
+          {skillCategories.map((category) => {
+            const isActive = activeCategory === category.id;
+            return (
+              <button
+                key={category.id}
+                onClick={() => setActiveCategory(category.id)}
+                className={`relative px-5 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
+                  isActive 
+                    ? "text-white" 
+                    : "text-text-secondary hover:text-white"
+                }`}
+              >
+                {isActive && (
+                  <motion.div
+                    layoutId="skillTabIndicator"
+                    className="absolute inset-0 bg-white/10 rounded-full border border-white/10"
+                    transition={{ type: "tween", ease: "easeOut", duration: 0.3 }}
+                  />
+                )}
+                <span className="relative z-10">{category.title}</span>
+              </button>
+            );
+          })}
         </div>
 
-        {/* Skills Categories */}
-        <div className="space-y-16">
-          {skillCategories.map((category, idx) => (
-            <div key={idx} className="space-y-8">
-              {/* Category Title */}
-              <div className="text-center">
-                <h3 className="text-2xl md:text-3xl font-black text-[#c4962a] mb-3" style={{ fontFamily: 'Cinzel, serif' }}>
-                  {category.title}
-                </h3>
-                <div className="flex items-center justify-center gap-3">
-                  <div className="h-[2px] w-16 bg-gradient-to-r from-transparent via-[#c4962a] to-transparent" />
-                  <div className="w-2 h-2 rotate-45 border-2 border-[#c4962a]" />
-                  <div className="h-[2px] w-16 bg-gradient-to-r from-transparent via-[#c4962a] to-transparent" />
-                </div>
-              </div>
-
-              {/* Skills Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
-                {category.skills.map((skill, sIdx) => (
-                  <div
-                    key={sIdx}
-                    className="group relative bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] border-4 border-[#c4962a]/30 hover:border-[#c4962a] transition-all duration-500 transform hover:scale-105 hover:shadow-[0_0_30px_rgba(196,150,42,0.4)] p-6 w-full max-w-sm animate-float"
-                    style={{ 
-                      animationDelay: `${sIdx * 0.1}s`,
-                      animationDuration: `${3 + (sIdx % 3) * 0.5}s`
+        {/* Skills Grid */}
+        <div className="min-h-[300px]">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeCategory}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 md:gap-8 justify-items-center"
+            >
+              {activeCategoryData.skills.map((skill, index) => (
+                <motion.div
+                  key={skill.name}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ ease: "easeOut", duration: 0.4, delay: index * 0.05 }}
+                  whileHover={{ scale: 1.05 }}
+                  className="group relative w-full aspect-square bg-card backdrop-blur-md border border-border rounded-2xl flex flex-col items-center justify-center p-6 cursor-default transition-colors duration-300 hover:bg-surface/80 overflow-hidden"
+                >
+                  {/* Brand Color Glow on Hover */}
+                  <div 
+                    className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-500 pointer-events-none"
+                    style={{
+                      background: `radial-gradient(circle at center, ${skill.color} 0%, transparent 70%)`
                     }}
+                  />
+
+                  <div 
+                    className="mb-4 drop-shadow-md transition-transform duration-300 group-hover:scale-110"
+                    style={{ color: skill.color, filter: `drop-shadow(0 0 12px ${skill.color}50)` }}
                   >
-                    {/* Corner Decorations */}
-                    <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#c4962a] transition-all duration-300 group-hover:w-6 group-hover:h-6" />
-                    <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-[#c4962a] transition-all duration-300 group-hover:w-6 group-hover:h-6" />
-                    <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-[#c4962a] transition-all duration-300 group-hover:w-6 group-hover:h-6" />
-                    <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-[#c4962a] transition-all duration-300 group-hover:w-6 group-hover:h-6" />
-
-                    {/* Glowing Background Effect */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#c4962a]/0 to-[#c4962a]/0 group-hover:from-[#c4962a]/10 group-hover:to-[#c4962a]/5 transition-all duration-500" />
-
-                    <div className="relative flex flex-col items-center text-center space-y-4">
-                      <div
-                        className={`p-4 border-2 border-[#c4962a] group-hover:border-[#ffd700] group-hover:shadow-[0_0_20px_rgba(196,150,42,0.5)] transition-all duration-500 ${skill.color} flex items-center justify-center w-16 h-16 text-lg font-bold animate-icon-pulse`}
-                      >
-                        {skill.icon}
-                      </div>
-                      
-                      <h4 className="text-xl font-black text-[#c4962a] group-hover:text-[#ffd700] transition-colors duration-300" style={{ fontFamily: 'Cinzel, serif' }}>
-                        {skill.name}
-                      </h4>
-
-                      {/* Decorative Divider */}
-                      <div className="flex items-center gap-2 w-full justify-center">
-                        <div className="h-[1px] w-8 bg-gradient-to-r from-transparent via-[#c4962a] to-[#c4962a]" />
-                        <div className="w-1.5 h-1.5 bg-[#c4962a] rounded-full animate-pulse" />
-                        <div className="h-[1px] w-8 bg-gradient-to-l from-transparent via-[#c4962a] to-[#c4962a]" />
-                      </div>
-
-                      <p className="text-[#d4d4d4] text-sm leading-relaxed group-hover:text-white transition-colors duration-300" style={{ fontFamily: 'Cormorant Garamond, serif' }}>
-                        {skill.desc}
-                      </p>
-                    </div>
+                    <skill.icon size={32} />
                   </div>
-                ))}
-              </div>
-            </div>
-          ))}
+                  
+                  <h4 className="text-body font-medium text-text-secondary group-hover:text-white transition-colors duration-300">
+                    {skill.name}
+                  </h4>
+                  
+                </motion.div>
+              ))}
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes float {
-          0%, 100% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(-10px);
-          }
-        }
-
-        @keyframes icon-pulse {
-          0%, 100% {
-            transform: scale(1);
-          }
-          50% {
-            transform: scale(1.05);
-          }
-        }
-
-        .animate-float {
-          animation: float 3s ease-in-out infinite;
-        }
-
-        .animate-icon-pulse {
-          animation: icon-pulse 2s ease-in-out infinite;
-        }
-      `}</style>
     </section>
   );
 };

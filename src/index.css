@@ -1,7 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  body {
+    @apply bg-background text-text font-sans antialiased selection:bg-primary/30 selection:text-white;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display tracking-tight;
+  }
+}
+
+@layer components {
+  .text-h1 {
+    @apply text-[56px] leading-[1.1] font-bold;
+  }
+  .text-h2 {
+    @apply text-[34px] md:text-[36px] leading-[1.2] font-semibold;
+  }
+  .text-h3 {
+    @apply text-[18px] leading-[1.4] font-semibold;
+  }
+  .text-body {
+    @apply text-[15px] leading-[1.6] font-normal;
+  }
+  .text-eyebrow {
+    @apply text-[12px] leading-tight font-medium uppercase tracking-[0.08em] text-text-secondary;
+  }
+  .section-py {
+    @apply py-16 md:py-28;
+  }
+}
+
 html {
-  scroll-behavior: fast;
+  scroll-behavior: smooth;
 }

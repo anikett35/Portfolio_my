@@ -1,143 +1,149 @@
 import React, { useState, useEffect } from "react";
-import { X, Menu, ExternalLink } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+
+const navLinks = [
+  { id: "home", label: "Home" },
+  { id: "about", label: "About" },
+  { id: "experience", label: "Experience" },
+  { id: "projects", label: "Projects" },
+  { id: "skill", label: "Skills" },
+  { id: "contact", label: "Contact" },
+];
 
 const Navbar = () => {
-  const [menu, setMenu] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState('');
+  const [activeSection, setActiveSection] = useState("home");
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      const isScrolled = window.scrollY > 20;
-      setScrolled(isScrolled);
+      setIsScrolled(window.scrollY > 50);
+
+      const sections = navLinks.map(link => document.getElementById(link.id));
+      let current = "home";
+      sections.forEach((section) => {
+        if (section) {
+          const sectionTop = section.offsetTop;
+          if (window.scrollY >= sectionTop - 150) {
+            current = section.getAttribute("id");
+          }
+        }
+      });
+      setActiveSection(current);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (menu && !event.target.closest('.mobile-menu') && !event.target.closest('.menu-toggle')) {
-        setMenu(false);
-      }
-    };
-
-    document.addEventListener('click', handleClickOutside);
-    return () => document.removeEventListener('click', handleClickOutside);
-  }, [menu]);
-
-  const navLinks = [
-    { href: '#about', label: 'About' },
-    { href: '#experience', label: 'Experience' },
-    { href: '#projects', label: 'Projects' },
-    { href: '#skill', label: 'Skill' },
-    { href: '#contact', label: 'Contact' }
-  ];
-
-  const handleLinkClick = (href) => {
-    setMenu(false);
-    setActiveSection(href);
+  const handleNavClick = (e, targetId) => {
+    e.preventDefault();
+    setIsMobileMenuOpen(false);
+    const element = document.getElementById(targetId);
+    if (element) {
+      const topOffset = element.offsetTop - 80;
+      window.scrollTo({
+        top: topOffset,
+        behavior: "smooth",
+      });
+    }
   };
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      scrolled 
-        ? 'bg-[#0a0a0a]/95 backdrop-blur-md shadow-[0_4px_20px_rgba(196,150,42,0.2)] border-b-2 border-[#c4962a]/30' 
-        : 'bg-[#0a0a0a] border-b-2 border-[#c4962a]/20'
-    }`}>
-      <div className="max-w-7xl mx-auto px-6 py-4 md:px-20">
-        <div className="flex justify-between items-center">
-          {/* Brand Name with Shield */}
-          <div className="flex items-center space-x-3">
-            <div className="relative w-10 h-10 bg-gradient-to-br from-[#c4962a] via-[#ffd700] to-[#8b6914] flex items-center justify-center border-2 border-[#ffd700] shadow-[0_0_15px_rgba(196,150,42,0.4)]"
-              style={{
-                clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)'
-              }}>
-              <span className="text-black font-black text-sm" style={{ fontFamily: 'Cinzel, serif' }}>AB</span>
-            </div>
-            <span className="text-xl font-black tracking-wide cursor-pointer bg-gradient-to-r from-[#c4962a] via-[#ffd700] to-[#c4962a] bg-clip-text text-transparent hover:from-[#ffd700] hover:to-[#c4962a] transition-all duration-300 animate-shimmer bg-[length:200%_auto]"
-              style={{ fontFamily: 'Cinzel, serif' }}>
-              Aniket Bedwal
-            </span>
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${
+        isScrolled ? "py-4 bg-surface/50 backdrop-blur-xl border-b border-border shadow-glass" : "py-6"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
+        {/* Logo area */}
+        <a href="#home" onClick={(e) => handleNavClick(e, "home")} className="flex items-center gap-3 group">
+          <div className="w-8 h-8 rounded-full overflow-hidden border border-border shadow-[0_0_15px_rgba(59,130,246,0.3)] transition-all duration-300 ease-out group-hover:shadow-[0_0_20px_rgba(59,130,246,0.6)]">
+            <img src="/logo.png" alt="Logo" className="w-full h-full object-cover" />
           </div>
+          <span className="font-display font-medium text-lg text-text tracking-wide transition-colors duration-300 ease-out group-hover:text-primary">
+            Aniket.
+          </span>
+        </a>
 
-          {/* Desktop Navigation Links */}
-          <ul className="hidden md:flex items-center space-x-8">
-            {navLinks.map((link) => (
-              <li key={link.href}>
+        {/* Desktop Navigation */}
+        <ul className="hidden md:flex items-center gap-1 bg-surface/30 backdrop-blur-md border border-border px-2 py-1.5 rounded-full">
+          {navLinks.map((link) => {
+            const isActive = activeSection === link.id;
+            return (
+              <li key={link.id} className="relative">
                 <a
-                  href={link.href}
-                  onClick={() => handleLinkClick(link.href)}
-                  className={`relative text-[#d4d4d4] hover:text-[#c4962a] transition-all duration-300 text-sm font-bold tracking-wider uppercase group ${
-                    activeSection === link.href ? 'text-[#c4962a]' : ''
+                  href={`#${link.id}`}
+                  onClick={(e) => handleNavClick(e, link.id)}
+                  className={`relative block px-4 py-1.5 text-sm font-medium transition-colors duration-300 ease-out rounded-full ${
+                    isActive
+                      ? "text-white"
+                      : "text-text-secondary hover:text-white"
                   }`}
-                  style={{ fontFamily: 'Cinzel, serif' }}
                 >
-                  {link.label}
-                  <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-gradient-to-r from-[#c4962a] to-[#ffd700] transition-all duration-300 group-hover:w-full shadow-[0_0_8px_rgba(196,150,42,0.6)]"></span>
+                  <span className="relative z-10">{link.label}</span>
+                  {isActive && (
+                    <motion.div
+                      layoutId="navbar-indicator"
+                      className="absolute inset-0 bg-white/10 rounded-full z-0 shadow-[inset_0_0_10px_rgba(255,255,255,0.05)] border border-white/5"
+                      transition={{ type: "tween", ease: "easeOut", duration: 0.3 }}
+                    />
+                  )}
                 </a>
               </li>
-            ))}
-          </ul>
+            );
+          })}
+        </ul>
 
-          {/* Mobile Menu Toggle */}
-          <div className="md:hidden">
-            <button
-              className="menu-toggle p-2 text-[#c4962a] hover:text-[#ffd700] transition-colors duration-300 rounded-lg hover:bg-[#c4962a]/10 border border-[#c4962a]"
-              onClick={() => setMenu(!menu)}
-            >
-              {menu ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
-        </div>
+        {/* Contact CTA */}
+        <a
+          href="#contact"
+          onClick={(e) => handleNavClick(e, "contact")}
+          className="hidden md:block px-5 py-2 text-sm font-medium text-white bg-primary/90 border border-primary/50 rounded-full shadow-[0_0_15px_rgba(59,130,246,0.4)] transition-all duration-300 ease-out hover:bg-primary hover:shadow-[0_0_25px_rgba(59,130,246,0.6)] hover:-translate-y-[1px]"
+        >
+          Let's Talk
+        </a>
+
+        {/* Mobile Menu Toggle */}
+        <button
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="md:hidden text-text p-2 hover:bg-white/5 rounded-full transition-colors"
+        >
+          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
       </div>
 
       {/* Mobile Menu */}
-      <div className={`md:hidden mobile-menu transition-all duration-300 overflow-hidden ${
-        menu 
-          ? 'max-h-96 opacity-100 translate-y-0' 
-          : 'max-h-0 opacity-0 -translate-y-4'
-      }`}>
-        <div className="bg-[#0a0a0a]/98 backdrop-blur-md border-t-2 border-[#c4962a]/30 px-6 py-4 shadow-[0_4px_20px_rgba(196,150,42,0.3)]">
-          <ul className="space-y-1">
-            {navLinks.map((link, index) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  onClick={() => handleLinkClick(link.href)}
-                  className="block px-4 py-3 text-[#d4d4d4] hover:text-[#c4962a] hover:bg-[#c4962a]/10 rounded-lg transition-all duration-300 transform hover:translate-x-2 font-bold tracking-wider border border-transparent hover:border-[#c4962a]/30"
-                  style={{ animationDelay: `${index * 50}ms`, fontFamily: 'Cinzel, serif' }}
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-          
-          <div className="mt-4 pt-4 border-t-2 border-[#c4962a]/30">
-            <a
-              href="#contact"
-              className="flex items-center justify-center space-x-2 w-full px-4 py-3 bg-gradient-to-r from-[#c4962a] to-[#8b6914] hover:from-[#ffd700] hover:to-[#c4962a] text-black text-sm font-bold rounded-lg transition-all duration-300 border border-[#ffd700] shadow-[0_0_15px_rgba(196,150,42,0.3)]"
-              onClick={() => setMenu(false)}
-              style={{ fontFamily: 'Cinzel, serif' }}
-            >
-              <span>SEND RAVEN</span>
-              <ExternalLink size={14} />
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <style jsx>{`
-        @keyframes shimmer {
-          0% { background-position: 200% center; }
-          100% { background-position: -200% center; }
-        }
-        .animate-shimmer {
-          animation: shimmer 3s linear infinite;
-        }
-      `}</style>
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ type: "tween", ease: "easeOut", duration: 0.2 }}
+            className="absolute top-full left-0 right-0 bg-surface/95 backdrop-blur-xl border-b border-border p-6 md:hidden shadow-glass"
+          >
+            <ul className="flex flex-col gap-2">
+              {navLinks.map((link) => (
+                <li key={link.id}>
+                  <a
+                    href={`#${link.id}`}
+                    onClick={(e) => handleNavClick(e, link.id)}
+                    className={`block px-4 py-3 text-base font-medium rounded-lg transition-colors ${
+                      activeSection === link.id
+                        ? "bg-primary/10 text-primary border border-primary/20"
+                        : "text-text-secondary hover:text-white hover:bg-white/5"
+                    }`}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };

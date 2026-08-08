@@ -7,22 +7,24 @@ import Projects from './assets/Project/Project';
 import Footer from './assets/Footer/Footer';
 import WorkExperience from './assets/Experinced/Experinced';
 
+import SpaceBackground from './components/SpaceBackground';
 
 function App() {
 
   return (
-    <div className="bg-gradient-to-br from-gray-900 via-black to-gray-800 min-h-screen text-white">
-
-
-    <Navbar/>
-    <Home/>
-    <WorkExperience/>
-    <Projects/>
-    <Skill/>
-    <About/>
-    <Footer/>
-  
-   
+    <div className="relative min-h-screen overflow-hidden bg-background text-text selection:bg-primary/30 selection:text-white">
+      {/* 3D Ambient Background */}
+      <SpaceBackground />
+      
+      <div className="relative z-10 flex flex-col">
+        <Navbar/>
+        <Home/>
+        <WorkExperience/>
+        <Projects/>
+        <Skill/>
+        <About/>
+        <Footer/>
+      </div>
     </div>
        
     

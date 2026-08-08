@@ -1,210 +1,127 @@
-import React, { useState } from "react";
-import { User, X, Trophy, Youtube, GraduationCap } from "lucide-react";
+import React from "react";
+import { Code2, BookOpen, Youtube, Award, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
+import CountUp from "react-countup";
+import { useInView } from "react-intersection-observer";
 
-const About = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const StatCard = ({ icon: Icon, value, suffix = "", label, delay }) => {
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.5 });
 
   return (
-    <>
-      <section
-        id="about"
-        className="relative py-20 bg-[#0a0a0a] text-white overflow-hidden"
-      >
-        {/* Stone Wall Texture */}
-        <div className="absolute inset-0 opacity-5"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E")`,
-            backgroundSize: '100px 100px'
-          }}
-        />
-
-        {/* Torch Glow */}
-        <div className="absolute top-1/4 right-20 w-96 h-96 bg-[#c4962a] rounded-full blur-[120px] opacity-10 animate-pulse" />
-
-        <div className="max-w-6xl mx-auto px-6 relative z-10">
-          {/* Section Header with Ornamental Line */}
-          <div className="flex items-center gap-4 mb-16">
-            <User className="w-8 h-8 text-[#c4962a]" />
-            <h2 className="text-4xl font-black text-[#c4962a] tracking-wide" style={{ fontFamily: 'Cinzel, serif' }}>
-              About Me
-            </h2>
-            <div className="flex-1 h-[2px] bg-gradient-to-r from-[#c4962a] via-[#ffd700] to-transparent" />
-          </div>
-
-          <div className="flex flex-col md:flex-row gap-12 items-center md:items-start">
-            {/* Left Content - Manuscript Style */}
-            <motion.div 
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="md:w-1/2 space-y-6 text-lg leading-relaxed" 
-              style={{ fontFamily: 'Cormorant Garamond, serif' }}
-            >
-              <p className="text-[#d4d4d4] first-letter:text-6xl first-letter:font-bold first-letter:text-[#c4962a] first-letter:mr-2 first-letter:float-left first-letter:leading-none">
-                My name is <span className="text-[#c4962a] font-bold">Aniket Bedwal</span>, 
-                a passionate and self-driven student. I hold a <span className="text-[#c4962a] font-bold">B.Tech in Computer Science (AI)</span> from <span className="text-[#c4962a] font-bold">VIT Pune (CGPA: 9.14)</span>, and a Diploma in Information Technology from <span className="text-[#c4962a] font-bold">Government Polytechnic Mumbai (91.08%)</span>.
-              </p>
-              
-              <div className="flex items-center gap-4 my-6">
-                <div className="h-[2px] flex-1 bg-gradient-to-r from-transparent via-[#c4962a] to-transparent" />
-                <div className="w-2 h-2 rotate-45 border-2 border-[#c4962a]" />
-                <div className="h-[2px] flex-1 bg-gradient-to-r from-transparent via-[#c4962a] to-transparent" />
-              </div>
-
-              <div className="space-y-4">
-                <h3 className="text-2xl font-black text-[#c4962a]" style={{ fontFamily: 'Cinzel, serif' }}>Achievements & Activities</h3>
-                <ul className="space-y-3">
-                  <li className="flex items-center gap-3 text-[#d4d4d4]">
-                    <Trophy className="text-[#c4962a] w-5 h-5" />
-                    <span><span className="font-bold text-[#c4962a]">Finalist</span> - Odoo x VIT Pune Hackathon 26</span>
-                  </li>
-                  <li className="flex items-center gap-3 text-[#d4d4d4]">
-                    <Youtube className="text-[#c4962a] w-5 h-5" />
-                    <span><span className="font-bold text-[#c4962a]">Techzy</span> YouTube Channel - 27,000+ subscribers</span>
-                  </li>
-                </ul>
-              </div>
-              
-              <p className="text-[#d4d4d4] mt-6">
-                My journey is fueled by <span className="text-[#c4962a] font-bold">dedication and consistent effort</span>. I actively participate in hackathons, open-source initiatives, and continuous learning to grow as a professional. I'm always ready to <span className="text-[#c4962a] font-bold">collaborate, innovate, and make an impact</span>.
-              </p>
-            </motion.div>
-
-            {/* Right Content - Royal Portrait */}
-            <motion.div 
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="md:w-1/2 flex justify-center"
-            >
-              <div 
-                className="relative group cursor-pointer transition-all duration-500"
-                onClick={() => setIsModalOpen(true)}
-              >
-                {/* Outer Golden Frame */}
-                <div className="absolute -inset-4 bg-gradient-to-br from-[#c4962a] via-[#ffd700] to-[#8b6914] opacity-80 blur-lg group-hover:opacity-100 transition-all duration-500" />
-                
-                {/* Corner Ornaments */}
-                <div className="absolute -top-6 -left-6 w-12 h-12 border-t-4 border-l-4 border-[#c4962a]" />
-                <div className="absolute -top-6 -right-6 w-12 h-12 border-t-4 border-r-4 border-[#c4962a]" />
-                <div className="absolute -bottom-6 -left-6 w-12 h-12 border-b-4 border-l-4 border-[#c4962a]" />
-                <div className="absolute -bottom-6 -right-6 w-12 h-12 border-b-4 border-r-4 border-[#c4962a]" />
-
-                {/* Image Container */}
-                <div className="relative bg-[#1a1a1a] overflow-hidden transform transition-transform duration-500 group-hover:scale-105 border-4 border-[#c4962a]">
-                  <img
-                    src="/profile-pic.png.jpg"
-                    alt="Aniket's Profile"
-                    className="w-80 h-[480px] object-cover filter contrast-110 brightness-95"
-                  />
-
-                  {/* Inner Shadow Overlay */}
-                  <div className="absolute inset-0 shadow-[inset_0_0_60px_rgba(0,0,0,0.6)] pointer-events-none" />
-                  
-                  {/* Vignette Effect */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30 pointer-events-none" />
-                </div>
-
-                {/* Decorative Plate */}
-                <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-[#8b6914] via-[#c4962a] to-[#8b6914] px-6 py-2 border-2 border-[#ffd700] shadow-[0_0_20px_rgba(196,150,42,0.4)]">
-                  <span className="text-black font-black text-sm tracking-widest" style={{ fontFamily: 'Cinzel, serif' }}>
-                    DEVELOPER
-                  </span>
-                </div>
-              </div>
-            </motion.div>
-          </div>
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ ease: "easeOut", duration: 0.6, delay }}
+      className="relative p-6 rounded-2xl bg-surface/40 backdrop-blur-md border border-border overflow-hidden group hover:bg-surface/60 transition-colors duration-500"
+    >
+      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      
+      <div className="flex items-center gap-4 mb-4">
+        <div className="p-3 bg-primary/10 text-primary rounded-xl border border-primary/20">
+          <Icon size={20} />
         </div>
-      </section>
+        <span className="text-eyebrow">{label}</span>
+      </div>
+      
+      <div className="text-4xl md:text-5xl font-display font-semibold text-white tracking-tight flex items-baseline">
+        {inView ? (
+          <CountUp
+            end={parseFloat(value)}
+            decimals={value.includes('.') ? 2 : 0}
+            duration={2.5}
+            separator=","
+            useEasing={true}
+          />
+        ) : (
+          "0"
+        )}
+        <span className="text-2xl text-primary ml-1">{suffix}</span>
+      </div>
+    </motion.div>
+  );
+};
 
-      {/* Full Screen Modal */}
-      {isModalOpen && (
-        <div 
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-lg animate-fadeIn"
-          onClick={() => setIsModalOpen(false)}
-        >
-          {/* Close Button */}
-          <button
-            className="absolute top-8 right-8 text-[#c4962a] hover:text-[#ffd700] transition-colors z-10"
-            onClick={() => setIsModalOpen(false)}
+const About = () => {
+  return (
+    <section id="about" className="relative section-py z-10 border-t border-border/50">
+      
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        
+        <div className="flex flex-col lg:flex-row gap-16 items-start">
+          
+          {/* Bio Section */}
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ ease: "easeOut", duration: 0.8 }}
+            className="flex-1 lg:max-w-2xl"
           >
-            <X size={48} strokeWidth={3} />
-          </button>
-
-          {/* Modal Image - Same styling as original */}
-          <div 
-            className="relative animate-scaleIn"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="relative">
-              {/* Outer Golden Frame */}
-              <div className="absolute -inset-6 bg-gradient-to-br from-[#c4962a] via-[#ffd700] to-[#8b6914] opacity-90 blur-xl" />
-              
-              {/* Corner Ornaments */}
-              <div className="absolute -top-8 -left-8 w-16 h-16 border-t-4 border-l-4 border-[#c4962a]" />
-              <div className="absolute -top-8 -right-8 w-16 h-16 border-t-4 border-r-4 border-[#c4962a]" />
-              <div className="absolute -bottom-8 -left-8 w-16 h-16 border-b-4 border-l-4 border-[#c4962a]" />
-              <div className="absolute -bottom-8 -right-8 w-16 h-16 border-b-4 border-r-4 border-[#c4962a]" />
-
-              {/* Large Image Container */}
-              <div className="relative bg-[#1a1a1a] overflow-hidden border-4 border-[#c4962a]">
-                <img
-                  src="/profile-pic.png.jpg"
-                  alt="Aniket's Profile"
-                  className="w-[450px] h-[650px] md:w-[500px] md:h-[750px] object-cover filter contrast-110 brightness-95"
-                />
-
-                {/* Inner Shadow Overlay */}
-                <div className="absolute inset-0 shadow-[inset_0_0_60px_rgba(0,0,0,0.6)] pointer-events-none" />
-                
-                {/* Vignette Effect */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30 pointer-events-none" />
-              </div>
-
-              {/* Decorative Plate */}
-              <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-[#8b6914] via-[#c4962a] to-[#8b6914] px-8 py-3 border-2 border-[#ffd700] shadow-[0_0_30px_rgba(196,150,42,0.6)]">
-                <span className="text-black font-black text-lg tracking-widest" style={{ fontFamily: 'Cinzel, serif' }}>
-                  DEVELOPER
-                </span>
-              </div>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-surface/50 backdrop-blur-sm mb-6">
+              <span className="text-eyebrow">About Me</span>
             </div>
+            
+            <h2 className="text-h2 text-white mb-8">
+              Transforming complex problems into elegant, scalable solutions.
+            </h2>
+            
+            <div className="space-y-6 text-body text-text-secondary">
+              <p>
+                I am <strong className="text-white font-medium">Aniket Bedwal</strong>, a passionate and self-driven software engineer with a focus on building robust full-stack applications.
+              </p>
+              <p>
+                Currently pursuing my <strong className="text-white font-medium">B.Tech in Computer Science (AI)</strong> at VIT Pune (CGPA: 9.26), after completing a Diploma in Information Technology from Government Polytechnic Mumbai (91.08%).
+              </p>
+              <p>
+                With multiple internships spanning full-stack development and frontend engineering, I have cultivated strong expertise in the MERN stack, Next.js, scalable REST APIs, and secure authentication systems. I am deeply interested in integrating AI/ML models into enterprise-grade applications.
+              </p>
+            </div>
+
+            <motion.a 
+              href="#experience"
+              whileHover={{ x: 5 }}
+              className="inline-flex items-center gap-2 mt-8 text-primary font-medium hover:text-white transition-colors"
+            >
+              View my experience
+              <ArrowRight size={16} />
+            </motion.a>
+          </motion.div>
+
+          {/* Stats Grid */}
+          <div className="flex-1 w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <StatCard 
+              icon={Code2} 
+              label="Projects Built" 
+              value="15" 
+              suffix="+" 
+              delay={0.2} 
+            />
+            <StatCard 
+              icon={BookOpen} 
+              label="CGPA (B.Tech)" 
+              value="9.26" 
+              delay={0.3} 
+            />
+            <StatCard 
+              icon={Youtube} 
+              label="Subscribers" 
+              value="27" 
+              suffix="k+" 
+              delay={0.4} 
+            />
+            <StatCard 
+              icon={Award} 
+              label="Internships" 
+              value="4" 
+              delay={0.5} 
+            />
           </div>
+          
         </div>
-      )}
-
-      <style jsx>{`
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
-        }
-
-        @keyframes scaleIn {
-          from {
-            transform: scale(0.5);
-            opacity: 0;
-          }
-          to {
-            transform: scale(1);
-            opacity: 1;
-          }
-        }
-
-        .animate-fadeIn {
-          animation: fadeIn 0.3s ease-out;
-        }
-
-        .animate-scaleIn {
-          animation: scaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-      `}</style>
-    </>
+      </div>
+    </section>
   );
 };
 

@@ -1,5 +1,5 @@
-import React, { useRef } from "react";
-import { ExternalLink, ArrowUpRight, Code } from "lucide-react";
+import React from "react";
+import { ExternalLink, Github, Code2 } from "lucide-react";
 import { motion } from "framer-motion";
 
 const projects = [
@@ -8,160 +8,155 @@ const projects = [
     title: "PolicyEngine",
     image: "/v1.png",
     liveUrl: "#",
-    description: "Industry-level rule evaluation system developed with Rubiscape Technologies for compliance and policy management. Implemented FastAPI backend APIs, JWT authentication, audit logging, and AI policy generation.",
+    githubUrl: "#",
+    description: "Enterprise compliance platform built with Rubiscape Technologies for policy management at scale. Architected FastAPI backend with dynamic rule engine, JWT auth, role-based access control, and audit logging. Integrated Groq LLaMA 3.3 for AI-assisted policy generation.",
     tech: ["FastAPI", "React 18", "MongoDB", "Groq LLaMA 3.3", "Random Forest"],
+    glow: "rgba(59, 130, 246, 0.4)", // primary
   },
   {
     id: 2,
     title: "Alumni-Connect",
     image: "/v5.png",
     liveUrl: "http://digital-platform-alumini.vercel.app",
-    description: "Built a mentoring platform connecting students with alumni. Implemented real-time messaging using Socket.IO, JWT authentication, and admin analytics dashboard.",
-    tech: ["React.js", "Node.js", "MongoDB", "Socket.IO"],
+    githubUrl: "#",
+    description: "Built a full-stack platform enabling real-time student-alumni networking, mentorship, and career guidance. Implemented Socket.IO for live messaging and JWT for secure stateless authentication. Designed admin analytics dashboard.",
+    tech: ["React", "Node.js", "Express", "MongoDB", "Socket.IO"],
+    glow: "rgba(34, 211, 238, 0.4)", // secondary
   },
   {
     id: 3,
     title: "MediMage",
     image: "/v3.png",
     liveUrl: "https://medi-mage.vercel.app/",
+    githubUrl: "#",
     description: "A doctor appointment booking platform enabling users to schedule visits, manage prescriptions, and monitor healthcare records efficiently.",
     tech: ["MongoDB", "Express.js", "React.js", "Node.js"],
+    glow: "rgba(16, 185, 129, 0.4)", // emerald
   },
   {
     id: 4,
     title: "PetCare",
     image: "/v4.png",
     liveUrl: "https://pet-care-new.vercel.app/",
+    githubUrl: "#",
     description: "A MERN-based pet healthcare solution that helps owners manage veterinary appointments, medical history, and vaccination reminders.",
     tech: ["MongoDB", "Express.js", "React.js", "Node.js"],
+    glow: "rgba(245, 158, 11, 0.4)", // amber
   },
 ];
 
 const ProjectCard = ({ project, index }) => (
   <motion.div
-    initial={{ opacity: 0, y: 50 }}
+    initial={{ opacity: 0, y: 30 }}
     whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.6, delay: index * 0.1 }}
-    viewport={{ once: true }}
-    className="relative rounded-none overflow-hidden border-4 border-[#c4962a]/40 backdrop-blur-sm bg-[#1a1a1a] hover:border-[#c4962a] transition-all duration-500 group hover:shadow-[0_0_40px_rgba(196,150,42,0.3)]"
+    transition={{ ease: "easeOut", duration: 0.6, delay: index * 0.1 }}
+    viewport={{ once: true, margin: "-50px" }}
+    whileHover={{ y: -4, scale: 1.01 }}
+    className="group relative flex flex-col bg-surface/30 backdrop-blur-md border border-border rounded-2xl overflow-hidden transition-all duration-500 hover:border-white/20 h-full"
+    style={{
+      boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+    }}
   >
-    {/* Corner Decorations */}
-    <div className="absolute top-0 left-0 w-6 h-6 border-t-4 border-l-4 border-[#c4962a] z-10" />
-    <div className="absolute top-0 right-0 w-6 h-6 border-t-4 border-r-4 border-[#c4962a] z-10" />
-    <div className="absolute bottom-0 left-0 w-6 h-6 border-b-4 border-l-4 border-[#c4962a] z-10" />
-    <div className="absolute bottom-0 right-0 w-6 h-6 border-b-4 border-r-4 border-[#c4962a] z-10" />
+    {/* Hover Glow Effect */}
+    <div 
+      className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0 pointer-events-none"
+      style={{
+        background: `radial-gradient(circle at 50% 0%, ${project.glow} 0%, transparent 70%)`
+      }}
+    />
 
-    <a
-      href={project.liveUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={`View ${project.title}`}
-    >
-      <div className="relative h-56 overflow-hidden">
+    <div className="p-4 z-10">
+      <div className="relative w-full aspect-[16/10] overflow-hidden rounded-xl border border-border/50 bg-background/50">
         <img
           src={project.image}
           alt={project.title}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 filter contrast-110 brightness-90"
+          className="w-full h-full object-cover filter brightness-90 contrast-110 transition-transform duration-700 ease-out group-hover:scale-105 group-hover:brightness-100"
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = "/logo.png";
+            e.target.className = "w-1/2 h-1/2 object-contain m-auto opacity-20 filter grayscale";
+          }}
         />
-        
-        {/* Dark Vignette Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-70 group-hover:opacity-40 transition-opacity duration-500" />
-        
-        {/* Arrow Icon */}
-        <div className="absolute top-4 right-4 bg-gradient-to-br from-[#c4962a] to-[#8b6914] p-2 border-2 border-[#ffd700] group-hover:scale-110 transition-transform duration-300 shadow-[0_0_15px_rgba(196,150,42,0.5)]">
-          <ArrowUpRight className="w-5 h-5 text-black" />
-        </div>
-
-        {/* Title Overlay Banner */}
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
-          <h3 className="text-2xl font-black text-[#c4962a] tracking-wide" style={{ fontFamily: 'Cinzel, serif' }}>
-            {project.title}
-          </h3>
-        </div>
+        {/* Glass Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/80 mix-blend-multiply opacity-50" />
       </div>
+    </div>
 
-      <div className="px-6 py-6 bg-gradient-to-b from-[#1a1a1a] to-[#0f0f0f]">
-        {/* Decorative Divider */}
-        <div className="flex items-center gap-3 mb-4">
-          <div className="h-[2px] w-8 bg-gradient-to-r from-[#c4962a] to-transparent" />
-          <div className="w-2 h-2 rotate-45 border-2 border-[#c4962a]" />
-          <div className="h-[2px] flex-1 bg-gradient-to-r from-[#c4962a] to-transparent" />
-        </div>
+    <div className="flex flex-col flex-grow p-6 pt-2 z-10">
+      <h3 className="text-h3 text-white mb-3 group-hover:text-primary transition-colors duration-300">
+        {project.title}
+      </h3>
+      
+      <p className="text-body text-text-secondary mb-6 flex-grow">
+        {project.description}
+      </p>
 
-        <p className="text-[#d4d4d4] text-sm mb-4 leading-relaxed" style={{ fontFamily: 'Cormorant Garamond, serif' }}>
-          {project.description}
-        </p>
-
-        {/* Tech Stack */}
-        <div className="flex flex-wrap gap-2 mb-4">
-          {project.tech.map((techItem, idx) => (
-            <span
-              key={idx}
-              className="text-xs px-3 py-1 bg-[#c4962a]/10 border border-[#c4962a]/30 text-[#c4962a] font-bold tracking-wider uppercase"
-              style={{ fontFamily: 'Cinzel, serif' }}
-            >
-              {techItem}
-            </span>
-          ))}
-        </div>
-
-        {/* View Project Button */}
-        <div className="relative flex items-center gap-2 px-4 py-3 bg-gradient-to-r from-[#c4962a] to-[#8b6914] hover:from-[#ffd700] hover:to-[#c4962a] transition-all duration-300 group-hover:scale-105 text-black cursor-pointer w-full justify-center border-2 border-[#ffd700] shadow-[0_0_15px_rgba(196,150,42,0.3)] overflow-hidden">
-          <ExternalLink size={18} className="relative z-10" />
-          <span className="relative z-10 font-bold tracking-wider" style={{ fontFamily: 'Cinzel, serif' }}>
-            VIEW PROJECTS
+      {/* Tech Stack */}
+      <div className="flex flex-wrap gap-2 mb-8">
+        {project.tech.map((techItem, idx) => (
+          <span
+            key={idx}
+            className="px-2.5 py-1 bg-white/5 border border-border text-text-secondary text-xs font-medium rounded-md"
+          >
+            {techItem}
           </span>
-        </div>
+        ))}
       </div>
-    </a>
+
+      {/* Action Buttons */}
+      <div className="flex items-center gap-3 mt-auto pt-4 border-t border-border/50">
+        <a
+          href={project.liveUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-primary/10 text-primary border border-primary/20 hover:bg-primary hover:text-white rounded-lg font-medium text-sm transition-colors duration-300"
+        >
+          <ExternalLink size={16} />
+          <span>Live Demo</span>
+        </a>
+        <a
+          href={project.githubUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-white/5 text-text border border-white/10 hover:bg-white/10 hover:text-white rounded-lg font-medium text-sm transition-colors duration-300"
+        >
+          <Github size={16} />
+          <span>Source Code</span>
+        </a>
+      </div>
+    </div>
   </motion.div>
 );
 
 const Projects = () => {
-  const sectionRef = useRef(null);
-
   return (
-    <section
-      id="projects"
-      ref={sectionRef}
-      className="relative py-20 bg-[#0a0a0a] text-white overflow-hidden"
-    >
-      {/* War Room Map Texture */}
-      <div className="absolute inset-0 opacity-5"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E")`,
-          backgroundSize: '100px 100px'
-        }}
-      />
-
-      {/* Torch Glow Effects */}
-      <div className="absolute top-1/4 left-20 w-96 h-96 bg-[#ff6b00] rounded-full blur-[120px] opacity-15 animate-pulse" />
-      <div className="absolute bottom-1/4 right-20 w-96 h-96 bg-[#c4962a] rounded-full blur-[120px] opacity-10 animate-pulse" style={{ animationDelay: '1s' }} />
-
-      <div className="relative z-10 max-w-5xl mx-auto px-6">
+    <section id="projects" className="relative section-py z-10 border-t border-border/50">
+      
+      <div className="max-w-7xl mx-auto px-6 md:px-12 relative">
+        
         {/* Section Header */}
         <motion.div 
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="flex items-center gap-4 mb-16"
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ ease: "easeOut", duration: 0.6 }}
+          className="mb-16"
         >
-          <Code className="w-8 h-8 text-[#c4962a]" />
-          <h2 className="text-4xl font-black text-[#c4962a] tracking-wide" style={{ fontFamily: 'Cinzel, serif' }}>
-            Projects
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-surface/50 backdrop-blur-sm mb-6">
+            <span className="text-eyebrow">Selected Work</span>
+          </div>
+          <h2 className="text-h2 text-white mb-4">
+            Featured Projects
           </h2>
-          <div className="flex-1 h-[2px] bg-gradient-to-r from-[#c4962a] via-[#ffd700] to-transparent" />
+          <p className="text-body text-text-secondary max-w-2xl">
+            A selection of my recent engineering work, demonstrating expertise in full-stack architecture, scalability, and UX design.
+          </p>
         </motion.div>
 
         {/* Projects Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-stretch">
           {projects.map((project, index) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              index={index}
-            />
+            <ProjectCard key={project.id} project={project} index={index} />
           ))}
         </div>
       </div>
